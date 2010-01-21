@@ -1,0 +1,63 @@
+sfJSLibTinyMCEPlugin
+==========================
+
+Contains the javascript, css & images from the TinyMCE library version 3.2.7
+package. When using in conjunction with the sfJSLibManagerPlugin you can include
+its js & css files simply by calling
+
+    sfJSLibManager::addLib('tiny_mce');
+
+This makes it very easy to write widgets, for example, which rely on this
+library automatically include their js & css assets without having to manually
+add them to view.yml
+
+
+Installation
+------------
+
+To install the plugin for a symfony project, the usual process is to use the
+symfony command line:
+
+    php symfony plugin:install sfJSLibTinyMCEPlugin
+
+If the installation of either package fails then you can manually download the
+tgz file from
+
+    http://plugins.symfony-project.org/get/sfJSLibTinyMCEPlugin/sfJSLibTinyMCEPlugin-3.2.7.tgz
+
+and then ask symfony to install the downloaded file
+
+    php symfony plugin:install sfJSLibTinyMCEPlugin-3.2.7.tgz
+
+Enable the plugin if necessary by editing config/ProjectConfiguration.class.php:
+
+    $this->enablePlugins('sfJSLibTinyMCEPlugin');
+
+
+Usage
+-----
+
+Whilst it's possible to use this plugin on its own, it's really intended for use
+in tandem with the sfJSLibManagerPlugin.
+
+By providing information about which css & js files the library uses, in a
+standard & unified structure, it allows the manager plugin to add the assets to
+the view including any assets from dependency libraries (non in this case)
+automatically.
+
+Just make sure to ask symfony to publish plugin assets:
+
+    php symfony plugin:publish-assets
+
+And then include them like so:
+
+    sfJSLibManager::addLib('tiny_mce');
+
+This eliminates the need to hard code the libraries in view.yml, and means only
+the libraries which are needed on any particular page can be included.
+
+The admin generator is a particularly good example of a place that could benefit
+from this. Widgets can be created which use the manager plugin to automatically
+include the libraries it depends on. If you have existing widgets which rely on
+a particular library then simply call the manager's addLib() method from the
+form's configure() method when you're setting up the widget.

@@ -1,0 +1,5 @@
+all:
+  .settings:
+    js_lib_tiny_mce:
+      web_dir:    /sfJSLibTinyMCEPlugin
+      js_files:   tiny_mce.js
